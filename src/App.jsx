@@ -1,7 +1,10 @@
+import VentanaPrincipal from "./components/VentanaPrincipal";
+
 const App = () => { 
   return (
-    <div>
-      <h1 className="text-fuchsia-500">My React App!</h1>
+    <div className="h-screen w-full  flex justify-center items-center ">
+      <VentanaPrincipal />
+      
     </div>
   );
  }  
