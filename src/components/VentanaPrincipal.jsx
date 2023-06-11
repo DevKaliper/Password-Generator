@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { FcApproval,FcCancel,FcCheckmark, FcLock } from "react-icons/fc";
 
 const VentanaPrincipal = () => {
   const [pass, setPass] = useState("")
@@ -20,7 +21,31 @@ const VentanaPrincipal = () => {
       }
 
 
+
+
       const geneneratePass= (value,checkedRepeat,checkedAlfa)=>{
+        if (!checkedAlfa && !checkedRepeat){
+          return Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Oops..',
+            text: 'Debes selecionar almenos una casilla',
+            showConfirmButton: false,
+            timer: 1500
+          }) && setPass("")
+        }
+
+        if (numero < 1){
+          return Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Oops..',
+            text: 'Debes seleccionar al menos 2 caracteres',
+            showConfirmButton: false,
+            timer: 1500
+          }) && setPass("")
+        }
+
         if (checkedAlfa){
           const banco = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@!#$&/)(=?¿"
           let password = ""
@@ -51,6 +76,8 @@ const VentanaPrincipal = () => {
 
           
 
+          
+
         }
         if (!checkedAlfa){
           const banco = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$&/)(=?¿"
@@ -70,7 +97,7 @@ const VentanaPrincipal = () => {
             return password
 
           }
-
+       
           
 
         }
@@ -88,7 +115,8 @@ const VentanaPrincipal = () => {
           return navigator.clipboard.writeText(str) && Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Contraseña copiada al porta papeles :)',
+            title: 'Listo :)',
+            text: 'Contraseña copiada al tu portapapeles',
             showConfirmButton: false,
             timer: 1500
           });
@@ -96,18 +124,29 @@ const VentanaPrincipal = () => {
         return Promise.reject("The Clipboard API is not available.");
       };
 
+      
+
+      
+
   return (
-    <div className=" p-7 h-[450px] w-[550px] rounded-xl bg-green-400">
+    <div className=" p-7 h-auto w-[550px] rounded-xl bg-green-100 shadow-2xl hover:scale-110  duration-500">
       <input
         type="text"
         placeholder="Contraseña"
         className="border-2 border-green-600 rounded-lg w-full p-2 font-extrabold text-xl text-center outline-none mb-2"
         value={pass && pass}
       />
-      <div className="flex justify-center items-center ">
-        <span className="flex-grow text-center">signo de seguridad de la contraseña</span>
+      <div className="flex justify-center items-center  ">
+        <div className="flex-grow flex gap-2 justify-center items-center text-2xl">
+        <span >{
+          pass.length < 4 ? <FcCancel/>  : pass.length > 3 && pass.length<8 ?  <FcApproval/> : pass.length > 7 && pass.length<=14 ? <FcCheckmark/> :  <FcLock/> 
+         
+        }</span>
+        <span>{pass.length < 4 ? "Contraseña muy débil" : pass.length > 3 && pass.length<8 ?  "Contraseña aceptable":  pass.length > 7 && pass.length<=14 ? "Contraseña fuerte" :  "Contraseña muy segura" }</span>
+
+        </div>
         <button onClick={() =>
-        copyToClipboard(pass)} className="rounded bg-green-600 px-4 py-2 font-bold text-white hover:bg-gray-700">
+        copyToClipboard(pass)} className="rounded px-4 py-2 font-bold text-white bg-gradient-to-r from-green-500 to-green-700">
           {" "}
           Copiar{" "}
         </button>
@@ -140,7 +179,7 @@ const VentanaPrincipal = () => {
             type="checkbox"
             name="similares"
             id="similares"
-            className="h-6 w-6 "
+            className="h-6 w-6 accent-green-700"
             checked={character}
             
             
@@ -159,7 +198,7 @@ const VentanaPrincipal = () => {
             type="checkbox"
             name="hexadecimal"
             id="hexadecimal"
-            className="h-6 w-6 "
+            className="h-6 w-6 accent-green-700"
             checked={alfaNum}
 
           />
@@ -168,11 +207,11 @@ const VentanaPrincipal = () => {
       </div>
 <div className="flex justify-center items-center text-center">
 
-      <button onClick={handleClick} className="border-2 py-2 px-3 my-4 rounded-xl text-xl font-bold" >Generar</button>
+      <button onClick={handleClick} className="py-2 px-3 my-4 rounded-xl text-xl font-bold bg-gradient-to-r from-green-500 to-green-700 text-white leading-8 hover:-translate-y-2 duration-500" >Generar</button>
 </div>
 
 
-      <div className="text-center font-thin">
+      <div className="text-center font-thin text-green-700">
         <i>Esta herramienta fue creada por DevKaliper</i>
       </div>
 
@@ -183,10 +222,4 @@ const VentanaPrincipal = () => {
 export default VentanaPrincipal;
 
 
-// TODO
-// 1. Terminar de Estilizar la ventana principal (done)
-// 2. Crear la logica para generar la contraseña
-// 3. Crear la logica para copiar la contraseña
-// 4. Crear la logica para evitar caracteres similares
-// 5. Crear la logica para generar hexadecimal
 
