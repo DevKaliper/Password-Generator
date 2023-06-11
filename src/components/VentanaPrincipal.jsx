@@ -119,7 +119,7 @@ const VentanaPrincipal = () => {
             position: 'center',
             icon: 'success',
             title: 'Listo :)',
-            text: 'Contraseña copiada al tu portapapeles',
+            text: 'Contraseña copiada a tu portapapeles',
             showConfirmButton: false,
             timer: 1500
           });
@@ -170,7 +170,7 @@ const VentanaPrincipal = () => {
             id="numero"
             className="border-2 border-green-600 rounded-lg h-[40px] w-[65px] p-2 font-mono text-xl text-center outline-none mb-2"
           />
-          <span className="font-mono text-xl">Numero de caracteres</span>
+          <span className="font-semibold text-xl">Numero de caracteres</span>
        
       </div>
 
