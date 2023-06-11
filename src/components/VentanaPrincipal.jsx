@@ -106,7 +106,10 @@ const VentanaPrincipal = () => {
       }
 
       const handleClick = () => { 
-        setPass(geneneratePass(numero,character,alfaNum))
+        let psw = geneneratePass(numero,character,alfaNum)
+        if (psw){
+          setPass(psw)
+        }
        }
 
        const copyToClipboard = str => {
