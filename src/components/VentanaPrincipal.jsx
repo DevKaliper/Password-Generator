@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const VentanaPrincipal = () => {
   const [pass, setPass] = useState("")
@@ -81,6 +82,20 @@ const VentanaPrincipal = () => {
         setPass(geneneratePass(numero,character,alfaNum))
        }
 
+       const copyToClipboard = str => {
+        if (navigator && navigator.clipboard && navigator.clipboard.writeText)
+        
+          return navigator.clipboard.writeText(str) && Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Contraseña copiada al porta papeles :)',
+            showConfirmButton: false,
+            timer: 1500
+          });
+          
+        return Promise.reject("The Clipboard API is not available.");
+      };
+
   return (
     <div className=" p-7 h-[450px] w-[550px] rounded-xl bg-green-400">
       <input
@@ -91,7 +106,8 @@ const VentanaPrincipal = () => {
       />
       <div className="flex justify-center items-center ">
         <span className="flex-grow text-center">signo de seguridad de la contraseña</span>
-        <button className="rounded bg-green-600 px-4 py-2 font-bold text-white hover:bg-gray-700">
+        <button onClick={() =>
+        copyToClipboard(pass)} className="rounded bg-green-600 px-4 py-2 font-bold text-white hover:bg-gray-700">
           {" "}
           Copiar{" "}
         </button>
